@@ -37,5 +37,13 @@ body {
   width: 20%;
 }
 
-.switch {
+.counter-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.counter {
+  font-size: 4rem;
+  color: #e0e0e0;
 }

@@ -12,7 +12,8 @@ class App extends Component {
   state = {
     switches: Array(switch_count).fill(false),
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
+    count: 0
   }
 
   isNormalSize = (width, height) => {
@@ -20,11 +21,12 @@ class App extends Component {
   }
 
   handleSwitched = (checked, i) => {
-    const switches = this.state.switches
+    const { switches, count } = this.state
     switches[i] = checked
 
     this.setState({
-      switches: switches
+      switches: switches,
+      count: count + 1
     })
 
     if (!switchSound.playing()) {
@@ -75,7 +77,7 @@ class App extends Component {
   }
 
   render() {
-    const { switches, width, height } = this.state
+    const { switches, width, height, count } = this.state
     const containerClassNames = this.isNormalSize(width, height)
       ? "switch-container switch-container--normal-size"
       : "switch-container"
@@ -84,16 +86,22 @@ class App extends Component {
       : "col"
 
     return (
-      <div className={containerClassNames}>
-        {switches.map((checked, i) => (
-          <div className={columnClassNames} key={i}>
-            <Switch
-              checked={checked}
-              onChange={checked => this.handleSwitched(checked, i)}
-              className="switch"
-            />
-          </div>
-        ))}
+      <div>
+        <div className={containerClassNames}>
+          {switches.map((checked, i) => (
+            <div className={columnClassNames} key={i}>
+              <Switch
+                checked={checked}
+                onChange={checked => this.handleSwitched(checked, i)}
+                className="switch"
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="counter-container">
+          <div className="counter">{count}</div>
+        </div>
       </div>
     )
   }
