@@ -5,7 +5,7 @@ import { Howl, Howler } from "howler"
 import "./App.css"
 import wav from "./switch.wav"
 
-const SWITCH_COUNT = 25
+const SWITCH_COUNT = 9
 let switchSound
 
 class App extends Component {
