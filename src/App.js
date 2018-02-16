@@ -1,9 +1,12 @@
 import React, { Component } from "react"
 import Switch from "react-ios-switch"
 import "normalize.css"
+import { Howl, Howler } from "howler"
 import "./App.css"
+import wav from "./switch.wav"
 
 const SWITCH_COUNT = 25
+let switchSound
 
 class App extends Component {
   state = { switches: Array(SWITCH_COUNT).fill(false) }
@@ -15,6 +18,14 @@ class App extends Component {
     this.setState({
       switches: switches
     })
+
+    if (!switchSound.playing()) {
+      switchSound.play()
+    }
+  }
+
+  componentDidMount() {
+    switchSound = new Howl({ src: [wav] })
   }
 
   render() {
