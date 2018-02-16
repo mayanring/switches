@@ -22,10 +22,19 @@ body {
   height: 320px;
 }
 
+.switch-container--normal-size {
+  width: 640px;
+  height: 640px;
+}
+
 .col {
   width: 33.333333333%;
   display: flex;
   justify-content: center;
+}
+
+.col--normal-size {
+  width: 20%;
 }
 
 .switch {
