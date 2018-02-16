@@ -4,6 +4,7 @@ import "normalize.css"
 import { Howl, Howler } from "howler"
 import "./App.css"
 import wav from "./switch.wav"
+import { loadState, saveState } from "./localStorage"
 
 let switch_count = 9
 let switchSound
@@ -22,16 +23,19 @@ class App extends Component {
 
   handleSwitched = (checked, i) => {
     const { switches, count } = this.state
+    const nextCount = count + 1
     switches[i] = checked
 
     this.setState({
       switches: switches,
-      count: count + 1
+      count: nextCount
     })
 
     if (!switchSound.playing()) {
       switchSound.play()
     }
+
+    saveState({ count: nextCount })
   }
 
   handleResize = () => {
@@ -70,6 +74,9 @@ class App extends Component {
     switchSound = new Howl({ src: [wav] })
 
     this.handleResize()
+
+    const localStorageData = loadState()
+    this.setState({ count: localStorageData ? localStorageData.count : 0 })
   }
 
   componentWillUnmount() {
